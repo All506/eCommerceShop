@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import ShoeCard from './components/ShoeCard/ShoeCard'
-import './App.css'
+import styles from './App.module.css'
 
 function App() {
   const [catalog, setCatalog] = useState([]);
@@ -17,14 +17,15 @@ function App() {
   }, []);
 
   return (
-    <>
-      <ul>
-        {catalog.map((shoe) => (
-          <ShoeCard shoe={shoe}></ShoeCard>
-        ))}
-      </ul>
-    </>
-  )
+  <div className={styles.catalog}>
+    {catalog.map((shoe) => (
+      <ShoeCard
+        key={shoe.id}
+        shoe={shoe}
+      />
+    ))}
+  </div>
+);
 }
 
 export default App
