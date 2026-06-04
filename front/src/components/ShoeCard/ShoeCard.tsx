@@ -5,12 +5,13 @@ interface Shoe {
     brand: string;
     model: string;
     price: number;
-    img: string
+    img: string;
+    onClick: () => void;
 }
 
-function ShoeCard({ shoe }: Shoe) {
+function ShoeCard({ shoe, onClick }: Shoe) {
     return (
-        <div className={styles.cardBackground}>
+        <div className={styles.cardBackground} onClick={onClick}>
             <img src={shoe.img}></img>
             <span className={styles.model}>{shoe.brand} {shoe.model}</span>
 

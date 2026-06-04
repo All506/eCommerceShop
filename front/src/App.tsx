@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import ShoeCard from './components/ShoeCard/ShoeCard'
 import Navbar from './components/Navbar/Navbar';
 import styles from './App.module.css'
+import noResultsGif from './assets/searching.gif';
 
 function App() {
   const [catalog, setCatalog] = useState([]);
   const [search, setSearch] = useState([]);
+  const [selectedShoe, setSelectedShoe] = useState(null);
 
   // Ran when loaded
   useEffect(() => {
@@ -13,14 +15,13 @@ function App() {
       const response = await fetch('/api/shoes');
       const data = await response.json();
       setCatalog(data);
-      console.log(data)
     }
 
     loadMainCatalog();
   }, []);
 
   // Search and shows results
-   useEffect(() => {
+  useEffect(() => {
     const loadShoes = async () => {
       const response = await fetch(
         `/api/shoes?search=${encodeURIComponent(search)}`
@@ -46,14 +47,29 @@ function App() {
         setSearch={setSearch}
       />
 
-      <div className={styles.catalog}>
-        {catalog.map((shoe) => (
-          <ShoeCard
-            key={shoe.id}
-            shoe={shoe}
-          />
-        ))}
-      </div>
+      {selectedShoe ? (
+        <h1>Shoe detail render</h1>
+      ) : catalog.length > 0 ? (
+        <div className={styles.catalog}>
+          {catalog.map((shoe) => (
+            <ShoeCard
+              key={shoe.id}
+              shoe={shoe}
+              onClick={() => {
+                setSelectedShoe(shoe)
+                console.log(shoe)
+              }}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className={styles.noResult}>
+          <img src={noResultsGif} alt="No results" />
+          <h2>No encontramos resultados</h2>
+          <span>Por favor intenta con otro producto</span>
+        </div>
+      )}
+
     </>
   );
 }
