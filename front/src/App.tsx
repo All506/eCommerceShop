@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import ShoeCard from './components/ShoeCard/ShoeCard'
 import Navbar from './components/Navbar/Navbar';
+import ShoeDetail from './components/ShoeDetail/ShoeDetail';
 import styles from './App.module.css'
 import noResultsGif from './assets/searching.gif';
 
@@ -48,7 +49,10 @@ function App() {
       />
 
       {selectedShoe ? (
-        <h1>Shoe detail render</h1>
+        <ShoeDetail
+        key={selectedShoe.id}
+        shoe={selectedShoe}
+        />
       ) : catalog.length > 0 ? (
         <div className={styles.catalog}>
           {catalog.map((shoe) => (
@@ -57,7 +61,7 @@ function App() {
               shoe={shoe}
               onClick={() => {
                 setSelectedShoe(shoe)
-                console.log(shoe)
+                setSearch('')
               }}
             />
           ))}

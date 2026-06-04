@@ -1,0 +1,18 @@
+    .detail {
+        margin: 0% 5% 0% 5%;
+        background-color: white;
+
+
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        padding-bottom: 20 em;
+
+        min-height: calc(100vh - 70px);
+    }
+
+   .detail h1{
+        padding-top: 100px;
+        font-size: 25px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+        text-align: center;
+    }
