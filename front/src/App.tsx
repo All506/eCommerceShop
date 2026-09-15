@@ -46,12 +46,16 @@ function App() {
       <Navbar
         search={search}
         setSearch={setSearch}
+        onCatalogClick={() => {
+          setSelectedShoe(null);
+          setSearch('');
+        }}
       />
 
       {selectedShoe ? (
         <ShoeDetail
-        key={selectedShoe.id}
-        shoe={selectedShoe}
+          key={selectedShoe.id}
+          shoe={selectedShoe}
         />
       ) : catalog.length > 0 ? (
         <div className={styles.catalog}>

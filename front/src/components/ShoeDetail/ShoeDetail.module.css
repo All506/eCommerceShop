@@ -6,7 +6,7 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         padding-bottom: 20 em;
 
-        min-height: calc(100vh - 70px);
+        min-height: calc(110vh - 70px);
     }
 
     .detail h1 {
@@ -24,7 +24,6 @@
         text-align: center;
     }
 
-    /*Estilos del carousel*/
     .carousel {
         position: relative;
         width: 100%;
@@ -46,7 +45,6 @@
         transition: opacity 0.2s ease-in-out;
     }
 
-    /* Flechas */
     .carouselArrow {
         position: absolute;
         top: 50%;
