@@ -1,12 +1,12 @@
 import styles from './ShoeCards.module.css'
 
 interface Shoe {
-    id: number;
+  id: number;
   brand: string;
   model: string;
   price: number;
   img: string;
-    onClick: () => void;
+  sale?: number;
 }
 
 interface ShoeCardProps {

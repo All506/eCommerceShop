@@ -11,12 +11,12 @@ interface Shoe {
 }
 
 interface ShoeDetailProps {
-  shoe: Shoe;
+    shoe: Shoe;
 }
 
 interface ShoeImage {
-  id: number;
-  link: string;
+    id: number;
+    link: string;
 }
 
 function ShoeDetail({ shoe }: ShoeDetailProps) {
@@ -33,9 +33,15 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
             .then(data => {
                 setImages(data)
             })
-            .catch(error => {
+            .catch(() => {
                 console.log(`Error al obtener imagenes de shoe id ${shoe.id}`);
-                setImages([shoe.img]);
+
+                setImages([
+                    {
+                        id: shoe.id,
+                        link: shoe.img
+                    }
+                ]);
             })
             .finally(() => {
                 setLoading(false);
