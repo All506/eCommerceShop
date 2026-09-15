@@ -6,5 +6,9 @@
     "search": {
         "notFound": "No encontramos resultados",
         "tryAgain": "Por favor intente con otro producto"
+    },
+    "shoeDetail": {
+        "stock": "Disponibles",
+         "instructions1": "Seleccione una de las tallas disponibles"
     }
 }

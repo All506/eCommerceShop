@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './ShoeDetail.module.css'
+import { useTranslation } from 'react-i18next';
 
 interface Shoe {
     id: number;
@@ -19,35 +20,58 @@ interface ShoeImage {
     link: string;
 }
 
+interface ShoeSize {
+    id: number;
+    sizeId: number;
+    size: number;
+    stock: number;
+}
+
 function ShoeDetail({ shoe }: ShoeDetailProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [images, setImages] = useState<ShoeImage[]>([]);
     const [isFading, setIsFading] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [sizes, setSizes] = useState<ShoeSize[]>([]);
+    const [selectedSize, setSelectedSize] = useState<number | null>(null);
+    const [actualStock, setActualStock] = useState<number | null>(null);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         setLoading(true);
 
-        fetch(`${import.meta.env.BASE_URL}api/shoes/images?id=${shoe.id}`)
-            .then(response => response.json())
-            .then(data => {
-                setImages(data)
-            })
-            .catch(() => {
-                console.log(`Error al obtener imagenes de shoe id ${shoe.id}`);
+        const loadShoeDetail = async () => {
+            try {
+                const imagesResponse = await fetch(
+                    `${import.meta.env.BASE_URL}api/shoes/images?id=${shoe.id}`
+                );
 
-                setImages([
-                    {
-                        id: shoe.id,
-                        link: shoe.img
-                    }
-                ]);
-            })
-            .finally(() => {
+                const imagesData = await imagesResponse.json();
+                setImages(imagesData);
+
+                const sizesResponse = await fetch(
+                    `${import.meta.env.BASE_URL}api/shoes/sizes?id=${shoe.id}`
+                );
+
+                const sizesData = await sizesResponse.json();
+                setSizes(sizesData);
+
+            } catch (error) {
+                console.error('Error cargando detalle:', error);
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
 
+        loadShoeDetail();
     }, [shoe])
+
+    // Cambio de talla para mostrar stock
+    const handleSizeChange = (shoeSize: ShoeSize) => {
+        setSelectedSize(shoeSize.size);
+        setActualStock(shoeSize.stock);
+    }
 
     // Cambios de estado relacionados a carusel
 
@@ -152,6 +176,36 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
                     </div>
 
                 </div>
+                <p>{t('shoeDetail.instructions1')}</p>
+                <div className={styles.sizesContainer}>
+                    <div className={styles.sizes}>
+                        {sizes.map((shoeSize) => (
+                            <label
+                                key={shoeSize.id}
+                                className={`${styles.sizeOption} ${selectedSize === shoeSize.size
+                                    ? styles.sizeSelected
+                                    : ''
+                                    }`}
+                            >
+                                <input
+                                    type="radio"
+                                    name="shoeSize"
+                                    value={shoeSize.size}
+                                    checked={selectedSize === shoeSize.size}
+                                    onChange={() => handleSizeChange(shoeSize)}
+                                />
+
+                                <span>{shoeSize.size}</span>
+                            </label>
+                        ))}
+                    </div>
+                </div>
+                
+                {
+                    actualStock && (
+                        <p>{t('shoeDetail.stock')}: {actualStock}</p>
+                    )
+                }
 
             </div>
         )

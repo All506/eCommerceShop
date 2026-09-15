@@ -24,7 +24,7 @@ body {
   flex-direction: column;
 
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
 
   text-align: center;
 
@@ -33,9 +33,9 @@ body {
 
 
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-  padding-bottom: 20  em;
+  padding-bottom: 20 em;
 
-    min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 70px);
 }
 
 .noResult img {
@@ -56,9 +56,12 @@ body {
   font-size: 15px;
 }
 
-@media screen and (width <= 400px) {
+@media screen and (width <=400px) {
   .catalog {
     margin-top: 45%;
   }
 
+  .noResult img {
+    margin-top: 30%;
+  }
 }

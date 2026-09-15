@@ -6,5 +6,9 @@
     "search": {
         "notFound": "No results found",
         "tryAgain": "Please try again with another product"
+    },
+    "shoeDetail": {
+        "stock": "Current Stock",
+        "instructions1": "Select one size available"
     }
 }
