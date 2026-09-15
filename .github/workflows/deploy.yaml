@@ -29,11 +29,14 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: front/package-lock.json
 
       - name: Install dependencies
+        working-directory: front
         run: npm ci
 
       - name: Build
+        working-directory: front
         run: npm run build
 
       - name: Setup Pages
@@ -42,7 +45,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./dist
+          path: ./front/dist
 
   deploy:
     environment:
