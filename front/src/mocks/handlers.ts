@@ -73,7 +73,7 @@ const images = [
 ];
 
 export const handlers = [
-  http.get('/api/shoes', ({ request }) => {
+  http.get(`*/api/shoes`, ({ request }) => {
     const url = new URL(request.url);
     const search = url.searchParams.get('search')?.toLowerCase() ?? '';
 
@@ -86,7 +86,7 @@ export const handlers = [
     return HttpResponse.json(results);
   }),
 
-  http.get('/api/shoes/images', async ({ request }) => {
+  http.get(`*/api/shoes/images`, async ({ request }) => {
     const url = new URL(request.url);
     const searchId = url.searchParams.get('id');
 

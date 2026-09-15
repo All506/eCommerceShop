@@ -18,7 +18,7 @@ function ShoeDetail({ shoe }: Shoe) {
     useEffect(() => {
         setLoading(true);
 
-        fetch(`/api/shoes/images?id=${shoe.id}`)
+        fetch(`${import.meta.env.BASE_URL}api/shoes/images?id=${shoe.id}`)
             .then(response => response.json())
             .then(data => {
                 setImages(data)
