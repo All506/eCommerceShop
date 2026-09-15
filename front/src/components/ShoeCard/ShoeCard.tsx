@@ -21,7 +21,7 @@ function ShoeCard({ shoe, onClick }: Shoe) {
                         €{shoe.price}
                     </span> 
                     <br></br>
-                    €{(shoe.price * (1 - shoe.sale / 100)).toFixed(0)} 
+                    €{(shoe.price * (1 - (shoe.sale ?? 0) / 100)).toFixed(0)}
                     <br></br>
                     <span>{shoe.sale}% off</span> 
                 </span>
