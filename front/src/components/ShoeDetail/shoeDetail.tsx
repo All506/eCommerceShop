@@ -6,12 +6,22 @@ interface Shoe {
     brand: string;
     model: string;
     price: number;
-    img: string
+    img: string;
+    sale?: number;
 }
 
-function ShoeDetail({ shoe }: Shoe) {
+interface ShoeDetailProps {
+  shoe: Shoe;
+}
+
+interface ShoeImage {
+  id: number;
+  link: string;
+}
+
+function ShoeDetail({ shoe }: ShoeDetailProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState<ShoeImage[]>([]);
     const [isFading, setIsFading] = useState(false);
     const [loading, setLoading] = useState(true);
 

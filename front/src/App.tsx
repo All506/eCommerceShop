@@ -6,11 +6,20 @@ import styles from './App.module.css'
 import noResultsGif from './assets/searching.gif';
 import { useTranslation } from 'react-i18next';
 
+interface Shoe {
+  id: number;
+  brand: string;
+  model: string;
+  price: number;
+  img: string;
+  sale?: number;
+}
+
 function App() {
-  const [catalog, setCatalog] = useState([]);
-  const [search, setSearch] = useState([]);
-  const [selectedShoe, setSelectedShoe] = useState(null);
-  const { t, i18n } = useTranslation();
+  const [catalog, setCatalog] = useState<Shoe[]>([]);
+  const [search, setSearch] = useState('');
+  const [selectedShoe, setSelectedShoe] = useState<Shoe | null>(null);
+  const { t } = useTranslation();
 
   // Ran when loaded
   useEffect(() => {

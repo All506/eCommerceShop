@@ -2,14 +2,19 @@ import styles from './ShoeCards.module.css'
 
 interface Shoe {
     id: number;
-    brand: string;
-    model: string;
-    price: number;
-    img: string;
+  brand: string;
+  model: string;
+  price: number;
+  img: string;
     onClick: () => void;
 }
 
-function ShoeCard({ shoe, onClick }: Shoe) {
+interface ShoeCardProps {
+  shoe: Shoe;
+  onClick: () => void;
+}
+
+function ShoeCard({ shoe, onClick }: ShoeCardProps) {
     return (
         <div className={styles.cardBackground} onClick={onClick}>
             <img src={shoe.img}></img>
