@@ -2,5 +2,9 @@
     "navbar": {
         "catalog": "Catalog",
         "search": "Search..."
+    },
+    "search": {
+        "notFound": "No results found",
+        "tryAgain": "Please try again with another product"
     }
 }

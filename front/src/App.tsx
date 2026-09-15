@@ -4,11 +4,13 @@ import Navbar from './components/Navbar/Navbar';
 import ShoeDetail from './components/ShoeDetail/ShoeDetail';
 import styles from './App.module.css'
 import noResultsGif from './assets/searching.gif';
+import { useTranslation } from 'react-i18next';
 
 function App() {
   const [catalog, setCatalog] = useState([]);
   const [search, setSearch] = useState([]);
   const [selectedShoe, setSelectedShoe] = useState(null);
+  const { t, i18n } = useTranslation();
 
   // Ran when loaded
   useEffect(() => {
@@ -73,8 +75,8 @@ function App() {
       ) : (
         <div className={styles.noResult}>
           <img src={noResultsGif} alt="No results" />
-          <h2>No encontramos resultados</h2>
-          <span>Por favor intenta con otro producto</span>
+          <h2>{t('search.notFound')}</h2>
+          <span>{t('search.tryAgain')}</span>
         </div>
       )}
 

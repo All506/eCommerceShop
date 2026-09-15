@@ -1,37 +1,87 @@
-import styles from './Navbar.module.css'
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import styles from './Navbar.module.css';
 
 interface NavbarProps {
-    search: string;
-    setSearch: React.Dispatch<React.SetStateAction<string>>;
-    onCatalogClick: () => void;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  onCatalogClick: () => void;
 }
 
 export default function Navbar({
-    search,
-    setSearch,
-    onCatalogClick
+  search,
+  setSearch,
+  onCatalogClick
 }: NavbarProps) {
 
-    const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [languageOpen, setLanguageOpen] = useState(false);
 
-    return (
-        <nav className={styles.navbar}>
-            <h1>Sneakers89</h1>
+  const isSpanish = i18n.language.startsWith('es');
 
-            <ul>
-                <li onClick={onCatalogClick}>
-                    {t('navbar.catalog')}
-                </li>
-            </ul>
+  const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+    setLanguageOpen(false);
+  };
 
-            <input
-                className={styles.search}
-                type="text"
-                placeholder={t('navbar.search')}
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-            />
-        </nav>
-    )
+  return (
+    <nav className={styles.navbar}>
+      <h1>Sneakers89</h1>
+
+      <ul>
+        <li onClick={onCatalogClick}>
+          {t('navbar.catalog')}
+        </li>
+      </ul>
+
+      <input
+        className={styles.search}
+        type="text"
+        placeholder={t('navbar.search')}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      <div className={styles.languageDropdown}>
+
+        <button
+          className={styles.languageSelected}
+          onClick={() => setLanguageOpen(!languageOpen)}
+        >
+          <span>{isSpanish ? '🇪🇸' : '🇬🇧'}</span>
+
+          <span className={styles.arrow}>
+            {languageOpen ? '▲' : '▼'}
+          </span>
+        </button>
+
+        {languageOpen && (
+          <div className={styles.languageMenu}>
+
+            <button
+              onClick={() => changeLanguage('es')}
+              className={
+                isSpanish ? styles.activeLanguage : ''
+              }
+            >
+              <span>🇪🇸</span>
+              <span>Español</span>
+            </button>
+
+            <button
+              onClick={() => changeLanguage('en')}
+              className={
+                !isSpanish ? styles.activeLanguage : ''
+              }
+            >
+              <span>🇬🇧</span>
+              <span>English</span>
+            </button>
+
+          </div>
+        )}
+
+      </div>
+    </nav>
+  );
 }

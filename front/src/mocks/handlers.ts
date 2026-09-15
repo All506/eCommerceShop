@@ -1,5 +1,5 @@
 // src/mocks/handlers.ts
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse, delay } from 'msw';
 
 const shoes = [
             { id: 1, brand: 'Adidas', model: 'Samba', price: 145, img: 'https://siman.vtexassets.com/arquivos/ids/5885735-1600-auto?v=638792020024830000&width=1600&height=auto&aspect=true' },
@@ -86,13 +86,15 @@ export const handlers = [
     return HttpResponse.json(results);
   }),
 
-  http.get('/api/shoes/images', ({ request }) => {
+  http.get('/api/shoes/images', async ({ request }) => {
     const url = new URL(request.url);
     const searchId = url.searchParams.get('id');
 
     const results = images.filter((image) =>
       image.id === Number(searchId)
     );
+ 
+    await delay(500);
 
     return HttpResponse.json(results);
   }),
