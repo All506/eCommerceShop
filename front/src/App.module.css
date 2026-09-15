@@ -55,3 +55,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
 }
+
+@media screen and (width <= 400px) {
+  .catalog {
+    margin-top: 25%;
+  }
+
+}
