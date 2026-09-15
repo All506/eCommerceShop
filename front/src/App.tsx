@@ -24,7 +24,7 @@ function App() {
   // Ran when loaded
   useEffect(() => {
     const loadMainCatalog = async () => {
-      const response = await fetch('${import.meta.env.BASE_URL}api/shoes');
+      const response = await fetch(`${import.meta.env.BASE_URL}api/shoes`);
       const data = await response.json();
       setCatalog(data);
     }
