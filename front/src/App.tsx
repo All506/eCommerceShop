@@ -15,10 +15,31 @@ interface Shoe {
   sale?: number;
 }
 
+interface CartItem {
+  shoeId: number;
+  brand: string;
+  model: string;
+  sizeId: number;
+  size: number;
+  price: number;
+  quantity: number;
+  img: string;
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+
+
 function App() {
   const [catalog, setCatalog] = useState<Shoe[]>([]);
   const [search, setSearch] = useState('');
   const [selectedShoe, setSelectedShoe] = useState<Shoe | null>(null);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [user, setUser] = useState<User | null>(null);
   const { t } = useTranslation();
 
   // Ran when loaded

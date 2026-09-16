@@ -33,8 +33,9 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
     const [isFading, setIsFading] = useState(false);
     const [loading, setLoading] = useState(true);
     const [sizes, setSizes] = useState<ShoeSize[]>([]);
-    const [selectedSize, setSelectedSize] = useState<number | null>(null);
+    const [selectedSize, setSelectedSize] = useState<ShoeSize | null>(null);
     const [actualStock, setActualStock] = useState<number | null>(null);
+    const [sizeError, setSizeError] = useState(false);
 
     const { t } = useTranslation();
 
@@ -69,8 +70,47 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
 
     // Cambio de talla para mostrar stock
     const handleSizeChange = (shoeSize: ShoeSize) => {
-        setSelectedSize(shoeSize.size);
+        setSelectedSize(shoeSize);
         setActualStock(shoeSize.stock);
+    }
+
+    // Add to cart function
+    const handleAddToCart = async (shoe: Shoe, shoeSize: ShoeSize | null) => {
+        if (shoeSize === null) {
+            setSizeError(true);
+            return;
+        } else {
+            setSizeError(false);
+
+            try {
+                const response = await fetch(
+                    `${import.meta.env.BASE_URL}api/cart/items`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            cartId: 1,
+                            shoeId: shoe.id,
+                            sizeId: shoeSize.sizeId,
+                            quantity: 1
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error('Error agregando producto al carrito');
+                }
+
+                const cartItem = await response.json();
+
+                console.log('Producto agregado:', cartItem);
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
     }
 
     // Cambios de estado relacionados a carusel
@@ -182,7 +222,7 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
                         {sizes.map((shoeSize) => (
                             <label
                                 key={shoeSize.id}
-                                className={`${styles.sizeOption} ${selectedSize === shoeSize.size
+                                className={`${styles.sizeOption} ${selectedSize?.size === shoeSize.size
                                     ? styles.sizeSelected
                                     : ''
                                     }`}
@@ -191,7 +231,7 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
                                     type="radio"
                                     name="shoeSize"
                                     value={shoeSize.size}
-                                    checked={selectedSize === shoeSize.size}
+                                    checked={selectedSize?.size === shoeSize.size}
                                     onChange={() => handleSizeChange(shoeSize)}
                                 />
 
@@ -200,12 +240,24 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
                         ))}
                     </div>
                 </div>
-                
+
                 {
                     actualStock && (
                         <p>{t('shoeDetail.stock')}: {actualStock}</p>
                     )
                 }
+                <div className={styles.sizesContainer}>
+                    <button
+                        className={styles.addButton}
+                        onClick={() => handleAddToCart(shoe, selectedSize)}>{t('general.addToCart')}</button>
+
+                </div>
+
+                {sizeError && (
+                    <p className={styles.errorMessage}>
+                        Seleccione una talla
+                    </p>
+                )}
 
             </div>
         )

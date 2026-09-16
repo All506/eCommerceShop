@@ -3,6 +3,9 @@
         "catalog": "Catálogo",
         "search": "Buscar..."
     },
+    "general": {
+        "addToCart": "Añadir al carrito"
+    },
     "search": {
         "notFound": "No encontramos resultados",
         "tryAgain": "Por favor intente con otro producto"

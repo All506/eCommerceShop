@@ -99,6 +99,40 @@ const shoeSizes = [
   { id: 12, shoeId: 2, sizeId: 6, stock: 5 },
 ];
 
+const users = [
+  {
+    id: 1,
+    name: 'User Test',
+    email: 'test@test.com'
+  }
+];
+
+const carts = [
+  {
+    id: 1,
+    userId: 1,
+    status: 'ACTIVE'
+  }
+];
+
+const cartItems = [
+  {
+    id: 1,
+    cartId: 1,
+    shoeId: 2,
+    sizeId: 3,
+    quantity: 1
+  }
+];
+
+// Interfaces
+interface AddCartItemRequest {
+  cartId: number;
+  shoeId: number;
+  sizeId: number;
+  quantity?: number;
+}
+
 export const handlers = [
   http.get(`*/api/shoes`, ({ request }) => {
     const url = new URL(request.url);
@@ -150,5 +184,50 @@ export const handlers = [
     });
 
     return HttpResponse.json(results);
+  }),
+
+  // Return cart from specific user id
+  http.get('*/api/cart', ({ request }) => {
+    const url = new URL(request.url);
+    const userId = Number(url.searchParams.get('userId'));
+
+    const cart = carts.find(
+      (cart) =>
+        cart.userId === userId &&
+        cart.status === 'ACTIVE'
+    );
+
+    if (!cart) {
+      return HttpResponse.json([]);
+    }
+
+    const items = cartItems.filter(
+      (item) => item.cartId === cart.id
+    );
+
+    return HttpResponse.json({
+      ...cart,
+      items
+    });
+  }),
+
+  http.post('*/api/cart/items', async ({ request }) => {
+    const body = await request.json() as AddCartItemRequest;
+
+    const newItem = {
+      id: cartItems.length + 1,
+      cartId: body.cartId,
+      shoeId: body.shoeId,
+      sizeId: body.sizeId,
+      quantity: body.quantity ?? 1
+    };
+
+    cartItems.push(newItem);
+    console.log('Cart actual:', cartItems);
+    
+    return HttpResponse.json(
+      newItem,
+      { status: 201 }
+    );
   }),
 ];

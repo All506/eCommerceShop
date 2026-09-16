@@ -24,7 +24,7 @@
         text-align: center;
     }
 
-    .detail p {
+    p {
         font-size: 16px;
         font-family: Arial, Helvetica, sans-serif;
         color: black;
@@ -196,6 +196,32 @@
         background: black;
         color: white;
         border-color: black;
+    }
+
+    .addButton {
+        height: 40px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-family: Arial, Helvetica, sans-serif;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: white;
+    }
+
+    .addButton:hover {
+        border-color: black;
+    }
+
+    .errorMessage {
+        color: #d32f2f;
+        font-size: 16px;
+        margin-top: 8px;
+        font-weight: bold;
     }
 
     /*Responsive queries*/
