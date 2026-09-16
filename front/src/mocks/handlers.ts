@@ -84,6 +84,7 @@ const sizes = [
 ];
 
 const shoeSizes = [
+  // Adidas Samba - shoeId 1
   { id: 1, shoeId: 1, sizeId: 1, stock: 5 },
   { id: 2, shoeId: 1, sizeId: 2, stock: 3 },
   { id: 3, shoeId: 1, sizeId: 3, stock: 8 },
@@ -91,12 +92,37 @@ const shoeSizes = [
   { id: 5, shoeId: 1, sizeId: 5, stock: 6 },
   { id: 6, shoeId: 1, sizeId: 6, stock: 0 },
 
+  // Nike Air - shoeId 2
   { id: 7, shoeId: 2, sizeId: 1, stock: 2 },
   { id: 8, shoeId: 2, sizeId: 2, stock: 4 },
   { id: 9, shoeId: 2, sizeId: 3, stock: 1 },
   { id: 10, shoeId: 2, sizeId: 4, stock: 7 },
   { id: 11, shoeId: 2, sizeId: 5, stock: 3 },
   { id: 12, shoeId: 2, sizeId: 6, stock: 5 },
+
+  // Nike CourtVision - shoeId 3
+  { id: 13, shoeId: 3, sizeId: 1, stock: 4 },
+  { id: 14, shoeId: 3, sizeId: 2, stock: 2 },
+  { id: 15, shoeId: 3, sizeId: 3, stock: 6 },
+  { id: 16, shoeId: 3, sizeId: 4, stock: 1 },
+  { id: 17, shoeId: 3, sizeId: 5, stock: 0 },
+  { id: 18, shoeId: 3, sizeId: 6, stock: 3 },
+
+  // Converse AllStar - shoeId 4
+  { id: 19, shoeId: 4, sizeId: 1, stock: 3 },
+  { id: 20, shoeId: 4, sizeId: 2, stock: 5 },
+  { id: 21, shoeId: 4, sizeId: 3, stock: 2 },
+  { id: 22, shoeId: 4, sizeId: 4, stock: 8 },
+  { id: 23, shoeId: 4, sizeId: 5, stock: 4 },
+  { id: 24, shoeId: 4, sizeId: 6, stock: 0 },
+
+  // Adidas Campus 00 - shoeId 5
+  { id: 25, shoeId: 5, sizeId: 1, stock: 1 },
+  { id: 26, shoeId: 5, sizeId: 2, stock: 6 },
+  { id: 27, shoeId: 5, sizeId: 3, stock: 4 },
+  { id: 28, shoeId: 5, sizeId: 4, stock: 3 },
+  { id: 29, shoeId: 5, sizeId: 5, stock: 7 },
+  { id: 30, shoeId: 5, sizeId: 6, stock: 2 },
 ];
 
 /*const users = [
