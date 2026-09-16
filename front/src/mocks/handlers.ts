@@ -99,13 +99,13 @@ const shoeSizes = [
   { id: 12, shoeId: 2, sizeId: 6, stock: 5 },
 ];
 
-const users = [
+/*const users = [
   {
     id: 1,
     name: 'User Test',
     email: 'test@test.com'
   }
-];
+];*/
 
 const carts = [
   {
