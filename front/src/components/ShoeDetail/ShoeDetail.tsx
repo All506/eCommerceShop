@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import styles from './ShoeDetail.module.css'
 import { useTranslation } from 'react-i18next';
+import {
+    getShoeImages,
+    getShoeSizes
+} from '../../services/shoeService';
+import {
+    addCartItem
+} from '../../services/cartService';
 
 interface Shoe {
     id: number;
@@ -44,18 +51,10 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
 
         const loadShoeDetail = async () => {
             try {
-                const imagesResponse = await fetch(
-                    `${import.meta.env.BASE_URL}api/shoes/images?id=${shoe.id}`
-                );
+                const imagesData = await getShoeImages(shoe.id);
+                const sizesData = await getShoeSizes(shoe.id);
 
-                const imagesData = await imagesResponse.json();
                 setImages(imagesData);
-
-                const sizesResponse = await fetch(
-                    `${import.meta.env.BASE_URL}api/shoes/sizes?id=${shoe.id}`
-                );
-
-                const sizesData = await sizesResponse.json();
                 setSizes(sizesData);
 
             } catch (error) {
@@ -83,27 +82,12 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
             setSizeError(false);
 
             try {
-                const response = await fetch(
-                    `${import.meta.env.BASE_URL}api/cart/items`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            cartId: 1,
-                            shoeId: shoe.id,
-                            sizeId: shoeSize.sizeId,
-                            quantity: 1
-                        })
-                    }
-                );
-
-                if (!response.ok) {
-                    throw new Error('Error agregando producto al carrito');
-                }
-
-                const cartItem = await response.json();
+                const cartItem = await addCartItem({
+                    cartId: 1,
+                    shoeId: shoe.id,
+                    sizeId: shoeSize.sizeId,
+                    quantity: 1
+                });
 
                 console.log('Producto agregado:', cartItem);
 

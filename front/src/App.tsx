@@ -5,6 +5,10 @@ import ShoeDetail from './components/ShoeDetail/ShoeDetail';
 import styles from './App.module.css'
 import noResultsGif from './assets/searching.gif';
 import { useTranslation } from 'react-i18next';
+import {
+  getAllShoes,
+  getShoeByName
+} from './services/shoeService'
 
 interface Shoe {
   id: number;
@@ -45,8 +49,7 @@ function App() {
   // Ran when loaded
   useEffect(() => {
     const loadMainCatalog = async () => {
-      const response = await fetch(`${import.meta.env.BASE_URL}api/shoes`);
-      const data = await response.json();
+      const data = await getAllShoes();
       setCatalog(data);
     }
 
@@ -56,12 +59,12 @@ function App() {
   // Search and shows results
   useEffect(() => {
     const loadShoes = async () => {
-      const response = await fetch(
-        `${import.meta.env.BASE_URL}api/shoes?search=${encodeURIComponent(search)}`
-      );
-
-      const data = await response.json();
-      setCatalog(data);
+      try {
+        const data = await getShoeByName(search);
+        setCatalog(data);
+      } catch (error) {
+        console.error('Error buscando zapatos:', error);
+      }
     };
 
     const timeoutId = setTimeout(() => {
