@@ -30,11 +30,11 @@ interface CartItem {
   img: string;
 }
 
-interface User {
+/*interface User {
   id: number;
   name: string;
   email: string;
-}
+}*/
 
 
 
@@ -43,7 +43,7 @@ function App() {
   const [search, setSearch] = useState('');
   const [selectedShoe, setSelectedShoe] = useState<Shoe | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [user, setUser] = useState<User | null>(null);
+  //const [user, setUser] = useState<User | null>(null);
   const { t } = useTranslation();
 
   // Ran when loaded
