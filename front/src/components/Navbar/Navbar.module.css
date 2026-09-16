@@ -224,3 +224,43 @@
     background: #f7f4f4;
   }
 }
+
+.cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  cursor: pointer;
+}
+
+.cartIcon {
+  font-size: 24px;
+}
+
+.cartCount {
+  position: absolute;
+
+  top: -2px;
+  right: -4px;
+
+  min-width: 18px;
+  height: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 4px;
+
+  border-radius: 999px;
+
+  background: #e53935;
+  color: white;
+
+  font-size: 11px;
+  font-weight: bold;
+}

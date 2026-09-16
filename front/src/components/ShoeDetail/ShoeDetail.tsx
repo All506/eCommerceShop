@@ -18,8 +18,20 @@ interface Shoe {
     sale?: number;
 }
 
+interface CartItem {
+    shoeId: number;
+    brand: string;
+    model: string;
+    sizeId: number;
+    size: number;
+    price: number;
+    quantity: number;
+    img: string;
+}
+
 interface ShoeDetailProps {
     shoe: Shoe;
+    onCartUpdated: (item: CartItem) => void;
 }
 
 interface ShoeImage {
@@ -34,7 +46,7 @@ interface ShoeSize {
     stock: number;
 }
 
-function ShoeDetail({ shoe }: ShoeDetailProps) {
+function ShoeDetail({ shoe, onCartUpdated }: ShoeDetailProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [images, setImages] = useState<ShoeImage[]>([]);
     const [isFading, setIsFading] = useState(false);
@@ -88,6 +100,17 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
                     shoeId: shoe.id,
                     sizeId: shoeSize.sizeId,
                     quantity: 1
+                });
+
+                onCartUpdated({
+                    shoeId: shoe.id,
+                    brand: shoe.brand,
+                    model: shoe.model,
+                    sizeId: shoeSize.sizeId,
+                    size: shoeSize.size,
+                    price: shoe.price,
+                    quantity: 1,
+                    img: shoe.img
                 });
 
                 console.log('Producto agregado:', cartItem);

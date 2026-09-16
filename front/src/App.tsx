@@ -76,6 +76,37 @@ function App() {
     };
   }, [search]);
 
+  // Conteo del carrito
+  const cartCount = cart.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
+  // Add object to cart logic
+  const addToCartState = (item: CartItem) => {
+    setCart((currentCart) => {
+      const existingItem = currentCart.find(
+        (cartItem) =>
+          cartItem.shoeId === item.shoeId &&
+          cartItem.sizeId === item.sizeId
+      );
+
+      if (existingItem) {
+        return currentCart.map((cartItem) =>
+          cartItem.shoeId === item.shoeId &&
+            cartItem.sizeId === item.sizeId
+            ? {
+              ...cartItem,
+              quantity: cartItem.quantity + 1
+            }
+            : cartItem
+        );
+      }
+
+      return [...currentCart, item];
+    });
+  };
+
   return (
     <>
       <Navbar
@@ -85,12 +116,14 @@ function App() {
           setSelectedShoe(null);
           setSearch('');
         }}
+        cartCount={cartCount}
       />
 
       {selectedShoe ? (
         <ShoeDetail
           key={selectedShoe.id}
           shoe={selectedShoe}
+          onCartUpdated={addToCartState}
         />
       ) : catalog.length > 0 ? (
         <div className={styles.catalog}>

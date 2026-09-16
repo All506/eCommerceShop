@@ -6,12 +6,14 @@ interface NavbarProps {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   onCatalogClick: () => void;
+  cartCount: number;
 }
 
 export default function Navbar({
   search,
   setSearch,
-  onCatalogClick
+  onCatalogClick,
+  cartCount
 }: NavbarProps) {
 
   const { t, i18n } = useTranslation();
@@ -41,6 +43,16 @@ export default function Navbar({
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+
+      <div className={styles.cart}>
+        <span className={styles.cartIcon}>🛒</span>
+
+        {cartCount > 0 && (
+          <span className={styles.cartCount}>
+            {cartCount}
+          </span>
+        )}
+      </div>
 
       <div className={styles.languageDropdown}>
 
@@ -79,6 +91,7 @@ export default function Navbar({
             </button>
 
           </div>
+
         )}
 
       </div>
