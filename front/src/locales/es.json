@@ -13,5 +13,8 @@
     "shoeDetail": {
         "stock": "Disponibles",
          "instructions1": "Seleccione una de las tallas disponibles"
+    },
+    "error": {
+        "selectShoeSize": "Seleccione una talla para continuar"
     }
 }

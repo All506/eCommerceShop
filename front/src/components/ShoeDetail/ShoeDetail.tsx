@@ -71,6 +71,7 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
     const handleSizeChange = (shoeSize: ShoeSize) => {
         setSelectedSize(shoeSize);
         setActualStock(shoeSize.stock);
+        setSizeError(false);
     }
 
     // Add to cart function
@@ -230,7 +231,7 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
                         <p>{t('shoeDetail.stock')}: {actualStock}</p>
                     )
                 }
-                <div className={styles.sizesContainer}>
+                <div className={styles.generalSpace}>
                     <button
                         className={styles.addButton}
                         onClick={() => handleAddToCart(shoe, selectedSize)}>{t('general.addToCart')}</button>
@@ -239,7 +240,7 @@ function ShoeDetail({ shoe }: ShoeDetailProps) {
 
                 {sizeError && (
                     <p className={styles.errorMessage}>
-                        Seleccione una talla
+                        {t('error.selectShoeSize')}
                     </p>
                 )}
 

@@ -13,5 +13,8 @@
     "shoeDetail": {
         "stock": "Current Stock",
         "instructions1": "Select one size available"
+    },
+    "error": {
+        "selectShoeSize": "Select a size to continue"
     }
 }
